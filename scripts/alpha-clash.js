@@ -10,26 +10,46 @@
 //     playgroundSection.classList.remove('hidden')
 // }
 
-function continueGame(){
-    // step-1 : generate a random alphabet 
-    const alphabet = getARandomAlphabet();
-    console.log('YOur random alphabet', alphabet)
+function handleKeyboardKeyUpEvent(event) {
+  const playerPressed = event.key;
+  console.log("player pressed", playerPressed);
 
-    // step-2 : set randomly generated alphabet to the screen (show it)
+  // get the expected to press
+  const currentAlphabetElement = document.getElementById("current-alphabet");
+  const currentAlphabet = currentAlphabetElement.innerText;
+  const expectedAlphabet = currentAlphabet.toLocaleLowerCase();
+  console.log(playerPressed , expectedAlphabet);
 
-    const currentAlphabetElement = document.getElementById('current-alphabet');
-    currentAlphabetElement.innerText = alphabet;
 
-    // step-3 : set background color 
-    setBackgroundColorById(alphabet)
+
+//   check matched or not 
+if(playerPressed === expectedAlphabet){
+    console.log('you get a point');
 
 }
+else{
+    console.log('you missed . you lost a life');
+}
+}
+// capture keyboard key press
+document.addEventListener("keyup", handleKeyboardKeyUpEvent);
 
+function continueGame() {
+  // step-1 : generate a random alphabet
+  const alphabet = getARandomAlphabet();
+  console.log("YOur random alphabet", alphabet);
 
+  // step-2 : set randomly generated alphabet to the screen (show it)
 
+  const currentAlphabetElement = document.getElementById("current-alphabet");
+  currentAlphabetElement.innerText = alphabet;
 
-function play(){
-    hideElementById('home-screen');
-    showElementById('play-ground');
-    continueGame();
+  // step-3 : set background color
+  setBackgroundColorById(alphabet);
+}
+
+function play() {
+  hideElementById("home-screen");
+  showElementById("play-ground");
+  continueGame();
 }
