@@ -14,6 +14,12 @@ function handleKeyboardKeyUpEvent(event) {
   const playerPressed = event.key;
   console.log("player pressed", playerPressed);
 
+    // stop the game if pressed 'Esc'
+
+    if (playerPressed == 'Escape')
+    {
+        gameOver();
+    }
   // get the expected to press
   const currentAlphabetElement = document.getElementById("current-alphabet");
   const currentAlphabet = currentAlphabetElement.innerText;
@@ -56,6 +62,11 @@ function handleKeyboardKeyUpEvent(event) {
     const updatedLife = currentLife -1 ;
     setTextElementValueById('current-life',updatedLife);
 
+    if( updatedLife === 0 )
+    {
+        gameOver();
+    }
+
 
 
 
@@ -90,7 +101,33 @@ function continueGame() {
 }
 
 function play() {
+    // hide everything show only the playground
   hideElementById("home-screen");
+  hideElementById('final-score');
   showElementById("play-ground");
+
+// reset score and life 
+setTextElementValueById('current-life',5);
+setTextElementValueById('current-score',0);
+
   continueGame();
+}
+
+function gameOver()
+{
+hideElementById('play-ground');
+showElementById('final-score');
+
+// update final score
+// 1. get the final score
+const lastScore = getTextElementValueById('current-score');
+
+console.log(lastScore);
+setTextElementValueById('last-score', lastScore);
+
+// 2. clear the last selected  alphabet highlight
+ const currentAlphabet = getElementTextById('current-alphabet');
+//  console.log(currentAlphabet);
+
+removedBackgroundColorById(currentAlphabet);
 }
